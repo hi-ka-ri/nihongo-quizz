@@ -5,6 +5,7 @@ import com.example.backend.entity.Vocabulary;
 import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.repository.VocabularyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class VocabularyService {
     
     private final VocabularyRepository vocabularyRepository;
 
+    @Cacheable("vocabulariesByUnit")
     public List<VocabularyDto> getVocabulariesByUnitId(Integer unitId) {
         return vocabularyRepository.findByUnitId(unitId).stream()
                 .map(this::mapToDto)

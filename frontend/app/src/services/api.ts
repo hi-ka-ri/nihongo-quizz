@@ -20,9 +20,13 @@ export const authApi = {
   }
 };
 
+const cache: Record<string, any> = {};
+
 export const unitApi = {
   getUnits: async (): Promise<Unit[]> => {
+    if (cache['units']) return cache['units'];
     const response = await api.get('/units');
+    cache['units'] = response.data;
     return response.data;
   },
   getUnitById: async (id: number): Promise<Unit> => {
@@ -33,7 +37,10 @@ export const unitApi = {
 
 export const vocabApi = {
   getVocabByUnit: async (unitId: number): Promise<Vocabulary[]> => {
+    const cacheKey = `vocab_${unitId}`;
+    if (cache[cacheKey]) return cache[cacheKey];
     const response = await api.get(`/units/${unitId}/vocabularies`);
+    cache[cacheKey] = response.data;
     return response.data;
   },
   getReviewVocab: async (): Promise<Vocabulary[]> => {

@@ -10,7 +10,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "vocabularies")
+@Table(name = "vocabularies", indexes = {
+    @Index(columnList = "unit_id")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

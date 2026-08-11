@@ -5,6 +5,7 @@ import com.example.backend.entity.Unit;
 import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.repository.UnitRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class UnitService {
     
     private final UnitRepository unitRepository;
 
+    @Cacheable("units")
     public List<UnitDto> getAllUnits() {
         return unitRepository.findAllByOrderByOrderIndexAsc().stream()
                 .map(this::mapToDto)
