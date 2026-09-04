@@ -605,14 +605,15 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         System.out.println("====== Cleared old and Seeded Unit 4 with 82 vocabularies ======");
 
-        // Seed Questions
-        questionRepository.deleteAll();
-        seedQuestionsForUnit(unit1);
-        seedQuestionsForUnit(unit2);
-        seedQuestionsForUnit(unit3);
-        seedQuestionsForUnit(unit4);
-        System.out.println("====== Seeded Questions for Units 1, 2, 3, 4 ======");
         } // Close if (vocabularyRepository.count() == 0)
+
+        // Generate questions for any unit that has vocabulary but no questions
+        for (Unit unit : unitRepository.findAll()) {
+            if (questionRepository.findByUnitId(unit.getId()).isEmpty()) {
+                seedQuestionsForUnit(unit);
+                System.out.println("====== Seeded Questions for Unit " + unit.getId() + " ======");
+            }
+        }
 
     }
 

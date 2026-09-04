@@ -39,8 +39,11 @@ public class QuizController {
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @PathVariable Integer attemptId,
             @RequestBody AnswerRequest request) {
+        long startTime = System.currentTimeMillis();
         Integer userId = userDetails != null ? userDetails.getUser().getId() : null;
         quizService.submitAnswer(userId, attemptId, request);
+        long endTime = System.currentTimeMillis();
+        System.out.println("Time taken to submit answer: " + (endTime - startTime) + " ms");
         return ResponseEntity.ok().build();
     }
 
@@ -48,8 +51,12 @@ public class QuizController {
     public ResponseEntity<QuizResultDto> submitQuiz(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @PathVariable Integer attemptId) {
+        long startTime = System.currentTimeMillis();
         Integer userId = userDetails != null ? userDetails.getUser().getId() : null;
-        return ResponseEntity.ok(quizService.submitQuiz(userId, attemptId));
+        QuizResultDto result = quizService.submitQuiz(userId, attemptId);
+        long endTime = System.currentTimeMillis();
+        System.out.println("Time taken to submit quiz: " + (endTime - startTime) + " ms");
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/quiz/review")
