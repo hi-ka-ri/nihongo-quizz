@@ -37,6 +37,7 @@ public class UnitService {
                 .description(unit.getDescription())
                 .orderIndex(unit.getOrderIndex())
                 .imageUrl(unit.getImageUrl())
+                .level(unit.getLevel())
                 .build();
     }
 }

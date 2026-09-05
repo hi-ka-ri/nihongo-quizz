@@ -11,4 +11,5 @@ public class UnitDto {
     private String description;
     private Integer orderIndex;
     private String imageUrl;
+    private String level;
 }

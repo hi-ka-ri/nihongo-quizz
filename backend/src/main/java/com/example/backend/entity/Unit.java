@@ -35,6 +35,9 @@ public class Unit {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(length = 10)
+    private String level;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
